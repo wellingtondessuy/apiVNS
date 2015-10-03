@@ -10,7 +10,7 @@ apt-get upgrade
 apt-get -y install nginx
 
 # Install PHP
-apt-get -y install php5 libapache2-mod-php5 php5-mcrypt php5-cli php5-fpm
+apt-get -y install php5 php5-mcrypt php5-cli php5-fpm
 
 # Removendo o arquivo de configuração padrão do Nginx
 rm /etc/nginx/nginx.conf

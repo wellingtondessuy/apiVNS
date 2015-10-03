@@ -1,11 +1,6 @@
 <?php 
 
-public class OrdersController {
-
-	public function __construct() {
-		echo 'contruct';
-
-	}
+class Orders {
 
 	public function insert() {
 		echo 'insert';
