@@ -18,3 +18,9 @@ rm /etc/nginx/nginx.conf
 ln -s /vagrant/config/nginx.conf /etc/nginx/
 # Reiniciando o Nginx
 service nginx restart
+
+# Install composer e via composer o Slim Framework
+cd /vagrant
+curl -sS https://getcomposer.org/installer | php
+php composer.phar install
+cd ~
