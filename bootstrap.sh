@@ -14,8 +14,8 @@ debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password
 debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password rootpass'
 apt-get -y install mysql-server libapache2-mod-auth-mysql php5-mysql
 
-# precisa ser aletarado para salvar corretamente no arquivo
-awk 'NR==58{print "default-storage-engine = myisam"}1' /etc/mysql/my.cnf
+# precisa ser alterado para salvar corretamente no arquivo
+sed -i "57a\default-storage-engine = myisam" /etc/mysql/my.cnf 
 
 /etc/init.d/mysql start
 
