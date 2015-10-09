@@ -14,7 +14,7 @@ class Orders {
 	}
 
 	public function insert() {
-		/*$client_id = $this->request->post('client_id');
+		$client_id = $this->request->post('client_id');
 		$product_id = $this->request->post('product_id');
 
 		$this->response->setStatus(200);
@@ -25,7 +25,7 @@ class Orders {
 			'product_id' => $product_id,
 			);
 
-		$this->response->write(json_encode($response));*/
+		$this->response->write(json_encode($response));
 	}
 
 	public function findById($id) {

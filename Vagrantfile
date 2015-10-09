@@ -1,9 +1,3 @@
-# Database Configuration
-mysql_root_password   = "qwer1234"   # We'll assume user "root"
-mysql_version         = "5.5"    # Options: 5.5 | 5.6
-mysql_enable_remote   = "false"  # remote access enabled when true
-mysql_database_name   = "vns"       # database name to be created.
-
 Vagrant.configure(2) do |config|
 
   config.vm.box = "ubuntu/trusty64"
@@ -14,6 +8,7 @@ Vagrant.configure(2) do |config|
   config.vm.box_check_update = false
 
   config.vm.network "forwarded_port", guest: 80, host: 9999
+  config.vm.network "forwarded_port", guest: 3306, host: 33066
 
   # config.vm.network "private_network", ip: "192.168.33.10"
 

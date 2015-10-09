@@ -33,9 +33,6 @@ echo 'Alterando arquivo de configuração do Nginx'
 rm /etc/nginx/nginx.conf
 # Link do arquivo de configuração existente no projeto
 ln -s /vagrant/config/nginx.conf /etc/nginx/
-# Reiniciando o Nginx
-echo 'Reiniciando Nginx'
-service nginx restart
 
 # Install composer e via composer o Slim Framework
 echo 'Instalando Composer'
@@ -44,3 +41,7 @@ curl -sS https://getcomposer.org/installer | php
 echo 'Instalando Slim via composer'
 php composer.phar install
 cd ~
+
+# Reiniciando o Nginx
+echo 'Reiniciando Nginx'
+service nginx restart

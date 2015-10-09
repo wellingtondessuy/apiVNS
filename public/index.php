@@ -1,7 +1,7 @@
 <?php 
 
-require 'vendor/autoload.php';
-require_once('controllers/Orders.php');
+require '../vendor/autoload.php';
+require_once('../controllers/Orders.php');
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
