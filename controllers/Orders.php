@@ -40,6 +40,7 @@ class Orders {
 
 	public function findAll() {
 		$this->db = new Db();
+		
 		echo $this->request->getMethod();
 		echo '   ';
 		echo 'findAll';
