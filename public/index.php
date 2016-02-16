@@ -43,6 +43,41 @@ $app->group('/api', function () use ($app) {
 
 });
 
+$app->group('/', function () use ($app) {
+    
+    $app->post('/:controller', function ($controller) use ($app) {
+        $controller = ucfirst($controller);
+        $controller = new $controller($app);
+        $controller->add();
+    });
+
+    $app->get('/:controller', function ($controller) use ($app) {
+        $controller = ucfirst($controller);
+        $controller = new $controller($app);
+        $data = $controller->index();
+        $app->render($controller . ".php", !$data? array():$data);
+    });    
+
+    $app->get('/:controller/:id', function ($controller, $id) use ($app) {
+        $controller = ucfirst($controller);
+        $controller = new $controller($app);
+        $controller->edit($id);
+    });
+
+    $app->put('/:controller/:id', function ($controller, $id) use ($app) {
+        $controller = ucfirst($controller);
+        $controller = new $controller($app);
+        $controller->update($id);
+    });
+
+    $app->delete('/:controller/:id', function ($controller, $id) use ($app) {
+        $controller = ucfirst($controller);
+        $controller = new $controller($app);
+        $controller->delete($id);
+    });     
+
+});
+
 $app->run();
 
 ?>
