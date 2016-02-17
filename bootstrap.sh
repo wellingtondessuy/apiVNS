@@ -10,14 +10,14 @@ apt-get update
 apt-get upgrade
 
 # Installing Mysql server
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password rootpass'
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password rootpass'
-apt-get -y install mysql-server libapache2-mod-auth-mysql php5-mysql
+# debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password rootpass'
+# debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password rootpass'
+# apt-get -y install mysql-server libapache2-mod-auth-mysql php5-mysql
 
 # precisa ser alterado para salvar corretamente no arquivo
-sed -i "57a\default-storage-engine = myisam" /etc/mysql/my.cnf 
+# sed -i "57a\default-storage-engine = myisam" /etc/mysql/my.cnf 
 
-/etc/init.d/mysql start
+# /etc/init.d/mysql start
 
 # Install Nginx
 echo 'Instalando Nginx'
