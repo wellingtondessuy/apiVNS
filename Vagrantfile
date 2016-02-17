@@ -8,16 +8,17 @@ Vagrant.configure(2) do |config|
   config.vm.box_check_update = false
 
   config.vm.network "forwarded_port", guest: 80, host: 9999
-  config.vm.network "forwarded_port", guest: 3306, host: 33066
+  config.vm.network "forwarded_port", guest: 8400, host: 9998
 
   # config.vm.network "private_network", ip: "192.168.33.10"
 
   # config.vm.network "public_network"
 
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder ".", "/vagrant"
+  config.vm.synced_folder "../fcontrol", "/fcontrol"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "256"
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as
