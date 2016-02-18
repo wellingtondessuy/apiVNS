@@ -16,46 +16,20 @@ class Login {
 	}
 
 	public function insert() {
-		$client_id = $this->request->post('client_id');
-		$product_id = $this->request->post('product_id');
 
-		$this->response->setStatus(200);
-		$this->response->headers->set('Content-Type', 'application/json');
+		$username = $this->request->post('username');
+		$password = $this->request->post('password');
 
-		$response = array(
-			'client_id' => $client_id,
-			'product_id' => $product_id,
-			);
+		if ($username == 'login_admin' && $password == 'senha_admin') {
+			$this->response->setStatus(200);	
+			$this->response->write(json_encode(array('client_id' => 1)));
+		} else {
+			$this->response->setStatus(401);
+		}
 
-		$this->response->write(json_encode($response));
+
 	}
-
-	public function findById($id) {
-		echo $this->request->getMethod();
-		echo '   ';
-		echo 'findById' . $id;
-	}
-
-	public function findAll() {
-		$this->db = new Db();
-		
-		echo $this->request->getMethod();
-		echo '   ';
-		echo 'findAll';
-	}
-
-	public function update($id) {
-		echo $this->request->getMethod();
-		echo '   ';
-		echo 'update' . $id;
-	}
-
-	public function delete($id) {
-		echo $this->request->getMethod();
-		echo '   ';	
-		echo 'delete' . $id;
-	}
-
+	
 }
 
 ?>

@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 $app = new \Slim\Slim();
+$app->response->headers->set('Content-Type', 'application/json');
 
 // API group
 $app->group('/api', function () use ($app) {
