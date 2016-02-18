@@ -1,14 +1,12 @@
 <?php 
 
 require '../vendor/autoload.php';
-require_once('../controllers/Orders.php');
 require_once('../controllers/Login.php');
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 $app = new \Slim\Slim();
-//$app->response->header("Access-Control-Allow-Origin : * ");
 
 // API group
 $app->group('/api', function () use ($app) {

@@ -22,6 +22,7 @@ apt-get upgrade
 # Install Nginx
 echo 'Instalando Nginx'
 apt-get -y install nginx
+apt-get install -y nginx-extras
 
 # Install PHP
 echo 'Instalando PHP e plugins'
