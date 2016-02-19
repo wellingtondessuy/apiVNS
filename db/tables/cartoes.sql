@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `cartoes`;
+
+CREATE TABLE IF NOT EXISTS `cartoes` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `descricao` VARCHAR(80) NOT NULL,
+  `entidade_id` INT(10) UNSIGNED NOT NULL,
+  `dia_abertura` INT(2) UNSIGNED NOT NULL,
+  `dia_fechamento` INT(2) UNSIGNED NOT NULL,
+  `status` ENUM('ATIVO','DESATIVADO') NOT NULL DEFAULT 'ATIVO' ,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci
+CHECKSUM = 1;
