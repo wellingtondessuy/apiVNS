@@ -39,9 +39,20 @@ ln -s /vagrant/config/nginx.conf /etc/nginx/
 echo 'Instalando Composer'
 cd /vagrant
 curl -sS https://getcomposer.org/installer | php
-echo 'Instalando Slim via composer'
+echo 'Instalando dependências via composer'
 php composer.phar install
 cd ~
+
+# configura php.ini para mostrar erros
+sed -i 's/display_errors = .*/display_errors = On/g' /etc/php5/cli/php.ini
+sed -i 's/html_errors = .*/html_errors = Off/g' /etc/php5/cli/php.ini
+sed -i 's/display_startup_errors = .*/display_startup_errors = Off/g' /etc/php5/cli/php.ini
+
+sed -i 's/display_errors = .*/display_errors = On/g' /etc/php5/fpm/php.ini
+sed -i 's/html_errors = .*/html_errors = Off/g' /etc/php5/fpm/php.ini
+sed -i 's/display_startup_errors = .*/display_startup_errors = Off/g' /etc/php5/fpm/php.ini
+
+service php5-fpm restart
 
 # Reiniciando o Nginx
 echo 'Reiniciando Nginx'
