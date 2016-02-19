@@ -17,16 +17,14 @@ class Login {
 
 	public function insert() {
 
-		$username = $this->request->post('username');
-		$password = $this->request->post('password');
+		$data = json_decode($this->request->getBody());
 
-		if ($username == 'login_admin' && $password == 'senha_admin') {
+		if ($data->username == 'login_admin' && $data->password == 'senha_admin') {
 			$this->response->setStatus(200);	
 			$this->response->write(json_encode(array('client_id' => 1)));
 		} else {
 			$this->response->setStatus(401);
 		}
-
 
 	}
 	
