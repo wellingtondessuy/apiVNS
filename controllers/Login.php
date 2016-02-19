@@ -17,9 +17,9 @@ class Login {
 
 	public function insert() {
 
-		$data = json_decode($this->request->getBody());
+		$data = json_decode($this->request->getBody(), true);
 
-		if ($data->username == 'login_admin' && $data->password == 'senha_admin') {
+		if ($data['username'] == 'login_admin' && $data['password'] == 'senha_admin') {
 			$this->response->setStatus(200);	
 			$this->response->write(json_encode(array('client_id' => 1)));
 		} else {
