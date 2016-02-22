@@ -6,6 +6,7 @@ require_once('../helpers/Db.php');
 
 require_once('../controllers/Base.php');
 require_once('../controllers/Login.php');
+require_once('../controllers/Transaction.php');
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -19,8 +20,11 @@ $app->error(function(\Exception $e) use ($app) {
     file_put_contents('/vagrant/tmp/logs/error.log', 
         'Code: ' . $e->getCode() . ' - ' . $e->getMessage() . PHP_EOL .
         'File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . PHP_EOL .
-        $e->getTraceAsString()
+        $e->getTraceAsString() . PHP_EOL,
+        FILE_APPEND
         );
+
+    $app->response->setStatus($e->getCode());
 
 });
 

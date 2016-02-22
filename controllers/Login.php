@@ -17,7 +17,7 @@ class Login extends Base {
 
 		$db = $this->getDI('db');
 
-		$result = $db->fetchAssoc('SELECT id, login, password FROM usuarios WHERE login = ?', array($data['username']));
+		$result = $db->fetchAssoc('users', array('login' => $data['username']), array('id', 'login', 'password'));
 
 		if ($result) {
 			

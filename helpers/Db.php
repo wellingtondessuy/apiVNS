@@ -21,15 +21,54 @@ class Db {
 
 	}
 
-	public function fetchAssoc($sql, $params) {
+	private function sqlSelectString($table, $where, $fields = null, $order = null) {
 
-		return $this->db->fetchAssoc($sql, $params);
+		if ($fields != null)
+			$string = 'SELECT ' . implode(', ', $fields) . ' ';
+		else
+			$string = 'SELECT * ';
+
+		$string .= 'FROM ' . $table . ' WHERE ';
+
+		$firstCondition = array_keys($where)[0];
+
+		foreach ($where as $field => $value) {
+
+			$hasComma = $field != $firstCondition? ', ' : '';
+
+			$string .= $hasComma . $field . ' = ?';
+			
+		}
+
+		if ($order != null && !empty($order)) {
+
+			$string .= 'ORDER BY ' . implode(', ', $order);
+
+		}
+
+		return $string;
 
 	}
 
-	public function fetchAll($sql, $params) {
+	public function fetchAssoc($table, $where, $fields = null, $order = null) {
 
-		return $this->db->fetchAll($sql, $params);
+		$sql = $this->sqlSelectString($table, $where, $fields, $order);
+
+		return $this->db->fetchAssoc($sql, array_values($where));
+
+	}
+
+	public function fetchAll($table, $where, $fields = null, $order = null) {
+
+		$sql = $this->sqlSelectString($table, $where, $fields, $order);
+
+		return $this->db->fetchAll($sql, array_values($where));
+
+	}
+
+	public function insert($table, $params) {
+
+		return $this->db->insert($table, $params);
 
 	}
 
