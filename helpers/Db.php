@@ -4,26 +4,33 @@ class Db {
 
 	private $db;
 
-	private function instance() {
-		try {
-			$this->db = mysql_connect('localhost', 'root', 'rootpass');
+	public function __construct() {
 
-			$result = mysql_select_db('apivns', $this->db);
-			
-			if (!$result)
-				die(var_dump('Erro ao selecionar o banco de dados.'));
+		$config = new \Doctrine\DBAL\Configuration();
 
-		} catch (Exception $e) {
-			die(var_dump($e));
-		}
+		$pathToConfigFile = '../config/database.php';
+
+		if (file_exists($pathToConfigFile))
+	       	$connectionParams = include $pathToConfigFile;
+	  	else
+	  		throw new Exception("Database file configuration not found", 500);
+	  	
+		$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+
+		$this->db = $conn;
+
 	}
 
-	public static function query() {
-		
+	public function fetchAssoc($sql, $params) {
+
+		return $this->db->fetchAssoc($sql, $params);
+
 	}
 
-	public static function fetchOne() {
-		die('entrou no fetchOne');
+	public function fetchAll($sql, $params) {
+
+		return $this->db->fetchAll($sql, $params);
+
 	}
 
 }

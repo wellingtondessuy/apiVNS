@@ -15,11 +15,23 @@ class Login extends Base {
 			return;
 		}
 
-		if ($data['username'] == 'login_admin' && $data['password'] == 'senha_admin') {
-			$this->app->response->setStatus(200);	
-			$this->app->response->write(json_encode(array('client_id' => 1)));
+		$db = $this->getDI('db');
+
+		$result = $db->fetchAssoc('SELECT id, login, password FROM usuarios WHERE login = ?', array($data['username']));
+
+		if ($result) {
+			
+			if ($data['password'] == $result['password']) {
+				$this->app->response->setStatus(200);	
+				$this->app->response->write(json_encode(array('client_id' => 1)));
+			} else {
+				$this->app->response->setStatus(401);
+			}
+			
 		} else {
-			$this->app->response->setStatus(401);
+
+			$this->app->response->setStatus(404);
+
 		}
 
 	}

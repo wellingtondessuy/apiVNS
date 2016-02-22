@@ -26,19 +26,7 @@ $app->error(function(\Exception $e) use ($app) {
 
 $app->container->singleton('db', function () {
 
-    $config = new \Doctrine\DBAL\Configuration();
-
-    $connectionParams = array(
-        'host' => '10.40.8.53',
-        'dbname' => 'fcontrol',
-        'user' => 'root',
-        'password' => 'vsadmin',
-        'driver' => 'pdo_mysql'
-    );
-
-    $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
-    
-    return $conn;
+    return new Db();
 
 });
 

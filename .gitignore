@@ -28,3 +28,5 @@ composer.lock
 sftp-config.json
 
 tmp/logs/error.log
+
+config/database.php

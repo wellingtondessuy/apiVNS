@@ -1,0 +1,8 @@
+<?php
+return array(
+	'host' => '10.40.8.53',
+	'dbname' => 'fcontrol',
+	'user' => 'root',
+	'password' => 'vsadmin',
+	'driver' => 'pdo_mysql'
+);
