@@ -1,6 +1,10 @@
 <?php 
 
 require '../vendor/autoload.php';
+
+require_once('../helpers/Db.php');
+
+require_once('../controllers/Base.php');
 require_once('../controllers/Login.php');
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,6 +21,24 @@ $app->error(function(\Exception $e) use ($app) {
         'File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . PHP_EOL .
         $e->getTraceAsString()
         );
+
+});
+
+$app->container->singleton('db', function () {
+
+    $config = new \Doctrine\DBAL\Configuration();
+
+    $connectionParams = array(
+        'host' => '10.40.8.53',
+        'dbname' => 'fcontrol',
+        'user' => 'root',
+        'password' => 'vsadmin',
+        'driver' => 'pdo_mysql'
+    );
+
+    $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+    
+    return $conn;
 
 });
 

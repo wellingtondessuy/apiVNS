@@ -1,29 +1,25 @@
 <?php
 
-require_once('../helpers/Db.php');
-
-class Login {
-
-	private $app;
-
-	private $request;
-
-	private $response;
+class Login extends Base {
 
 	public function __construct(&$app) {
-		$this->request = $app->request;
-		$this->response = $app->response;
+		parent::setUp($app);
 	}
 
 	public function insert() {
 
-		$data = json_decode($this->request->getBody(), true);
+		$data = json_decode($this->app->request->getBody(), true);
+
+		if (!isset($data['username']) || !isset($data['password'])) {
+			$this->app->response->setStatus(400);
+			return;
+		}
 
 		if ($data['username'] == 'login_admin' && $data['password'] == 'senha_admin') {
-			$this->response->setStatus(200);	
-			$this->response->write(json_encode(array('client_id' => 1)));
+			$this->app->response->setStatus(200);	
+			$this->app->response->write(json_encode(array('client_id' => 1)));
 		} else {
-			$this->response->setStatus(401);
+			$this->app->response->setStatus(401);
 		}
 
 	}
