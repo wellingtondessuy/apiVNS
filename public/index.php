@@ -36,21 +36,6 @@ $app->container->singleton('db', function () {
 
 $app->response->headers->set('Content-Type', 'application/json');
 
-
-// $config = new \Doctrine\DBAL\Configuration();
-
-// $connectionParams = array(
-//     'host' => '10.40.8.53',
-//     'dbname' => 'desenv',
-//     'user' => 'root',
-//     'password' => 'vsadmin',
-//     'driver' => 'pdo_mysql'
-// );
-// $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
-// $data = $conn->fetchAll('select * from park_ticket limit 3');
-// var_dump($data);
-// die;
-
 // API group
 $app->group('/api', function () use ($app) {
     

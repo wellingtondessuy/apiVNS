@@ -31,9 +31,8 @@ class Transaction extends Base {
 		$result = $this->getDI('db')->insert('transactions',
 			array(
 				'value' 			=> $data['value'],
-				'status' 			=> isset($data['status'])? $data['status'] : 'A PAGAR',
 				'user_id' 			=> $clientId,
-				'paid_off_at' 		=> isset($data['paid_off_at'])? $data['paid_off_at'] : null,
+				'executed_at' 		=> isset($data['executed_at'])? $data['executed_at'] : null,
 				'expiration_date' 	=> isset($data['expiration_date'])? $data['expiration_date'] : null,
 				'description' 		=> $data['description']
 			)

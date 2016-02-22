@@ -66,6 +66,19 @@ class Db {
 
 	}
 
+	public function date() {
+
+		return $this->db->fetchAssoc('SELECT CURDATE()')['CURDATE()'];
+
+	}
+
+
+	public function now() {
+
+		return $this->db->fetchAssoc('SELECT NOW()')['NOW()'];
+
+	}
+
 	public function insert($table, $params) {
 
 		return $this->db->insert($table, $params);
