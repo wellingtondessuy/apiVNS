@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `categories`;
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT(10) UNSIGNED NOT NULL,
+  `description` VARCHAR(80) NOT NULL,
+  `inserted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci
+CHECKSUM = 1;
+
+ALTER TABLE categories 
+ADD CONSTRAINT fk_categories_user_id 
+FOREIGN KEY (user_id) REFERENCES users(id);

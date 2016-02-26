@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "../fcontrol", "/var/www"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "256"
+    vb.memory = "512"
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as

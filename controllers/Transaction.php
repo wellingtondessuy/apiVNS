@@ -44,6 +44,23 @@ class Transaction extends Base {
 			$this->app->response->setStatus(500);
 
 	}
+
+	public function findById($id) {
+
+		// Pegar o id do header do request
+		$clientId = 1;
+
+		if (!$clientId)
+			throw new Exception("Invalid client id.", 400);
+
+		$result = $this->getDI('db')->fetchAssoc('transactions', array('id' => $id));
+
+		if ($result) {
+			$this->app->response->setStatus(200);
+			$this->app->response->write($result);
+		} else 
+			$this->app->response->setStatus(404);
+	}
 	
 }
 
