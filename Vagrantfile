@@ -14,7 +14,6 @@ Vagrant.configure(2) do |config|
   # config.vm.network "public_network"
 
   config.vm.synced_folder ".", "/vagrant"
-  config.vm.synced_folder "../fcontrol", "/var/www"
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "64"

@@ -14,6 +14,9 @@ class Transaction extends Base {
 		if (!isset($data['description']) || !is_string($data['description']))
 			throw new Exception("Invalid description for transaction.", 400);
 
+		if (!isset($data['category_id']) || !is_numeric($data['category_id']) || !is_int($data['category_id']))
+			throw new Exception("Invalid category_id for transaction.", 400);
+
 	}
 
 	public function insert() {
@@ -34,7 +37,8 @@ class Transaction extends Base {
 				'user_id' 			=> $clientId,
 				'executed_at' 		=> isset($data['executed_at'])? $data['executed_at'] : null,
 				'expiration_date' 	=> isset($data['expiration_date'])? $data['expiration_date'] : null,
-				'description' 		=> $data['description']
+				'description' 		=> $data['description'],
+				'category_id'		=> $data['category_id']
 			)
 		);
 
@@ -57,9 +61,33 @@ class Transaction extends Base {
 
 		if ($result) {
 			$this->app->response->setStatus(200);
-			$this->app->response->write($result);
+			$this->app->response->write(json_encode($result));
 		} else 
 			$this->app->response->setStatus(404);
+
+	}
+
+	private function validateFindAll($data) {
+
+		
+
+	}
+
+	public function findAll() {
+
+		// Pegar o id do header do request
+		$clientId = 1;
+
+		if (!$clientId)
+			throw new Exception("Invalid client id.", 400);
+
+		$data = json_decode($this->app->request->getBody(), true);
+
+		$this->validateFindAll($data);
+
+		$result = $this->getDI('db')->fetchAssoc('transactions', array('user_id' => $clientId));		
+
+
 	}
 	
 }

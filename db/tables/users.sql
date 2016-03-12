@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `login` VARCHAR(30) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE (`email`),
+  UNIQUE (`login`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci
