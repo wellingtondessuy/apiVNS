@@ -1,7 +1,13 @@
 #!/bin/bash
+ 
+	## Validação se o docker e o mysql estão instalados no host
 
+# Nome do container
 container="fc_mysql"
+
+# Diretório do host onde os dados do banco serão guardados 
 directory="/usr/share/fcontrol"
+
 hasData=0
 
 if [ -d "$directory" ]
@@ -10,7 +16,7 @@ then
 	hasData=1
 else
 	echo 'Criando diretório local para armazenamento dos dados...'
-	sudo mkdir /usr/share/fcontrol
+	sudo mkdir $directory
 fi
 
 docker ps -a | grep "$container" > /dev/null
@@ -33,8 +39,8 @@ else
 	docker run --name $container -p 3306:3306 -v $directory:/var/lib/mysql -e MYSQL_DATABASE=fcontrol -e MYSQL_ROOT_PASSWORD=root_pass -d mysql:latest		
 fi
 
-if [ $hasData = 0 ]
-then 
-echo 'Criando a estrutura do banco...'
-	mysql -uroot -proot_pass fcontrol < create_tables.sql
-fi
+# if [ $hasData = 0 ]
+# then 
+# echo 'Criando a estrutura do banco...'
+# 	mysql -uroot -proot_pass -P3306 -h127.0.0.1 fcontrol < db/create_tables.sql
+# fi
