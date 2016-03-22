@@ -29,4 +29,4 @@ sftp-config.json
 
 tmp/logs/error.log
 
-config/database.php
+src/Config/database.php
