@@ -1,5 +1,7 @@
 <?php
 
+namespace Helpers;
+
 class Db {
 
 	private $db;
@@ -8,12 +10,12 @@ class Db {
 
 		$config = new \Doctrine\DBAL\Configuration();
 
-		$pathToConfigFile = '../config/database.php';
+		$pathToConfigFile = __DIR__ . '/../Config/database.php';
 
 		if (file_exists($pathToConfigFile))
 	       	$connectionParams = include $pathToConfigFile;
 	  	else
-	  		throw new Exception("Database file configuration not found", 500);
+	  		throw new \Exception("Database file configuration not found", 500);
 	  	
 		$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
 
@@ -21,6 +23,9 @@ class Db {
 
 	}
 
+	/**
+	 * deprecated
+	 */
 	private function sqlSelectString($table, $where, $fields = null, $order = null) {
 
 		if ($fields != null)
@@ -50,19 +55,15 @@ class Db {
 
 	}
 
-	public function fetchAssoc($table, $where, $fields = null, $order = null) {
+	public function fetchAssoc($sql, $fieldsValues) {
 
-		$sql = $this->sqlSelectString($table, $where, $fields, $order);
-
-		return $this->db->fetchAssoc($sql, array_values($where));
+		return $this->db->fetchAssoc($sql, $fieldsValues);
 
 	}
 
-	public function fetchAll($table, $where, $fields = null, $order = null) {
+	public function fetchAll($sql, $fieldsValues) {
 
-		$sql = $this->sqlSelectString($table, $where, $fields, $order);
-
-		return $this->db->fetchAll($sql, array_values($where));
+		return $this->db->fetchAll($sql, $fieldsValues);
 
 	}
 

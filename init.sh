@@ -66,6 +66,8 @@ else
 
 fi
 
+sudo chmod -R 777 tmp/ &> /dev/null
+
 if [ $composer = 1 ]
 then 
 	echo 'Atualizando dependências via composer...'
