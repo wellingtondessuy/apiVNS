@@ -50,7 +50,7 @@ class AuthTest extends BaseTest {
 	 */
 	public function testVerifyAuthenticationInvalidToken() {
 
-		$this->instance->verifyAuthentication('');
+		$this->instance->verifyAuthentication('', 'Controller', 'findAll');
 
 	}
 
@@ -79,7 +79,7 @@ class AuthTest extends BaseTest {
 			->method('getDb')
 			->willReturn($mockDb);
 
-		$this->instance->verifyAuthentication('token');
+		$this->instance->verifyAuthentication('token', 'Controller', 'findAll');
 
 	}
 
@@ -108,7 +108,7 @@ class AuthTest extends BaseTest {
 			->method('getDb')
 			->willReturn($mockDb);
 
-		$this->instance->verifyAuthentication('token');
+		$this->instance->verifyAuthentication('token', 'Controller', 'findAll');
 
 	}
 
@@ -132,10 +132,22 @@ class AuthTest extends BaseTest {
 			->method('getDb')
 			->willReturn($mockDb);
 
-		$this->instance->verifyAuthentication('token');
+		$this->instance->verifyAuthentication('token', 'Controller', 'findAll');
 
 		$this->assertTrue(true);
 
+	}
+
+	public function testVerifyAuthenticationFreeRoute() {
+
+		$this->instance = $this->getClassMock('Helpers\Auth', array('decodeToken'));
+
+		$this->instance->expects($this->never())
+			->method('decodeToken');
+
+		$this->instance->verifyAuthentication('token', 'Login', 'insert');
+
+		$this->assertTrue(true);
 	}
 
 }

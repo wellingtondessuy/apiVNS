@@ -14,7 +14,9 @@ class Base {
 
 	public function getRequestData() {
 
-		return json_decode($this->app->request->getBody(), true);
+		$data = json_decode($this->app->request->getBody(), true);
+
+		return $data;
 
 	}
 

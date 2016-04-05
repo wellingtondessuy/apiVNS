@@ -6,6 +6,35 @@ use \Helpers\Db;
 
 class Auth {
 
+	private $allowedRoutes = array(
+		'Login' => array('insert'),
+		'User' => array('insert')
+		);
+
+	private function isFreeRoute($controller, $method) {
+
+
+		if (array_key_exists($controller, $this->allowedRoutes)) {
+
+			if (!$this->allowedRoutes[$controller]) 
+
+				return true;
+			
+			else {
+
+				$index = array_search($method, $this->allowedRoutes[$controller]);
+
+				if (is_numeric($index)) 
+					return true;
+				else 
+					return false;
+			
+			}
+
+		} else return false;
+
+	}
+
 	public function encryptPassword($username, $email, $password) {
 
 		$hash = $username . $email . $password;
@@ -60,22 +89,26 @@ class Auth {
 
 	}
 
-	public function verifyAuthentication($token) {
+	public function verifyAuthentication($token, $controller, $method) {
 
-		if (empty($token))
-			throw new \Exception('Token inválido', 400);
+		if (!$this->isFreeRoute($controller, $method)) {
 
-		$data = $this->decodeToken($token);
+			if (empty($token))
+				throw new \Exception('Token inválido', 400);
 
-		$db = $this->getDb();
+			$data = $this->decodeToken($token);
 
-		$user = $db->fetchAssoc('SELECT id, login, password FROM users WHERE login = ?', array($data['login']));
+			$db = $this->getDb();
 
-		if (!$user)
-			throw new \Exception('Token inválido', 404);
+			$user = $db->fetchAssoc('SELECT id, login, password FROM users WHERE login = ?', array($data['login']));
 
-		if ($user['password'] != $data['password'])
-			throw new \Exception('Token inválido', 401);
+			if (!$user)
+				throw new \Exception('Token inválido', 404);
+
+			if ($user['password'] != $data['password'])
+				throw new \Exception('Token inválido', 401);
+			
+		}
 
 	}
 

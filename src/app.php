@@ -17,8 +17,6 @@ $app->error(function(\Exception $e) use ($app) {
 
     $app->response->setStatus($e->getCode());
     
-    die(var_dump($e));
-
     // file_put_contents(__DIR__ . '/../tmp/logs/error.log', 
     //     'Code: ' . $e->getCode() . ' - ' . $e->getMessage() . PHP_EOL .
     //     'File: ' . $e->getFile() . ' - Line: ' . $e->getLine() . PHP_EOL .
@@ -46,6 +44,7 @@ $app->response->headers->set('Content-Type', 'application/json');
 $app->group('/api', function () use ($app) {
     
     $app->post('/:controller', function ($controller) use ($app) {
+        $app->auth->verifyAuthentication();
         $controller = ucfirst($controller);
         $controller = "\Controllers\\" . $controller;
         $controller = new $controller($app);
@@ -53,6 +52,7 @@ $app->group('/api', function () use ($app) {
     });
 
     $app->get('/:controller', function ($controller) use ($app) {
+        $app->auth->verifyAuthentication();
         $controller = ucfirst($controller);
         $controller = "\Controllers\\" . $controller;
         $controller = new $controller($app);
@@ -60,6 +60,7 @@ $app->group('/api', function () use ($app) {
     });    
 
     $app->get('/:controller/:id', function ($controller, $id) use ($app) {
+        $app->auth->verifyAuthentication();
         $controller = ucfirst($controller);
         $controller = "\Controllers\\" . $controller;
         $controller = new $controller($app);
@@ -67,6 +68,7 @@ $app->group('/api', function () use ($app) {
     });
 
     $app->put('/:controller/:id', function ($controller, $id) use ($app) {
+        $app->auth->verifyAuthentication();
         $controller = ucfirst($controller);
         $controller = "\Controllers\\" . $controller;
         $controller = new $controller($app);
@@ -74,6 +76,7 @@ $app->group('/api', function () use ($app) {
     });
 
     $app->delete('/:controller/:id', function ($controller, $id) use ($app) {
+        $app->auth->verifyAuthentication();
         $controller = ucfirst($controller);
         $controller = "\Controllers\\" . $controller;
     	$controller = new $controller($app);

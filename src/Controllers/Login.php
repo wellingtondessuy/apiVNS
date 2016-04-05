@@ -13,7 +13,7 @@ class Login extends Base {
 	}
 
 	public function insert() {
-		
+				
 		$data = $this->getRequestData();
 
 		if (!isset($data['login']) || !isset($data['password'])) {
